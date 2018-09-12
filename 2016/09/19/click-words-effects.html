@@ -6,17 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: 数组 | 煜儿博客</title>
+  <title>jquery实现点击鼠标左键页面出现文字效果 | 煜儿博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="学会分享，是生活前进的动力之一">
-<meta property="og:type" content="website">
-<meta property="og:title" content="煜儿博客">
-<meta property="og:url" content="http://yoursite.com/tags/数组/index.html">
+  <meta name="description" content="近几日翻阅博客时发现，很多博客页面会有点击鼠标左键出现文字效果，于是好奇研究了下。">
+<meta name="keywords" content="jquery,鼠标左键事件,文字效果">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jquery实现点击鼠标左键页面出现文字效果">
+<meta property="og:url" content="http://yoursite.com/2016/09/19/click-words-effects.html">
 <meta property="og:site_name" content="煜儿博客">
-<meta property="og:description" content="学会分享，是生活前进的动力之一">
+<meta property="og:description" content="近几日翻阅博客时发现，很多博客页面会有点击鼠标左键出现文字效果，于是好奇研究了下。">
+<meta property="og:updated_time" content="2018-09-12T12:49:04.451Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="煜儿博客">
-<meta name="twitter:description" content="学会分享，是生活前进的动力之一">
+<meta name="twitter:title" content="jquery实现点击鼠标左键页面出现文字效果">
+<meta name="twitter:description" content="近几日翻阅博客时发现，很多博客页面会有点击鼠标左键出现文字效果，于是好奇研究了下。">
   
     <link rel="alternative" href="/atom.xml" title="煜儿博客" type="application/atom+xml">
   
@@ -152,72 +154,188 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-click-words-effects" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/03/21/arraysort.html" class="archive-article-date">
-  	<time datetime="2016-03-21T12:11:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-03-21</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/03/21/arraysort.html">PHP常用数组排序算法</a>
+    <h1 class="article-title" itemprop="name">
+      jquery实现点击鼠标左键页面出现文字效果
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2016/09/19/click-words-effects.html" class="archive-article-date">
+  	<time datetime="2016-09-19T12:46:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-09-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>近几日翻阅博客时发现，很多博客页面会有点击鼠标左键出现文字效果，于是好奇研究了下。</p>
+<a id="more"></a>
+<h3 id="一-思路解析"><a href="#一-思路解析" class="headerlink" title="一.  思路解析"></a>一.  思路解析</h3><p>根据需求：“点击鼠标左键，出现文字效果“可以得出：</p>
+<p>1.首先确定你是不是点的鼠标左键；<br>2.文字效果要出现在你鼠标点击的地方；<br>3.点击后文字出现一个由下往上的显示效果；<br>4.点击完成后固定时间内还得消失</p>
+<p>综上，可以分析出实现这个效果的一个大体步骤：<br>【判断是否为鼠标左键】—&gt;【计算鼠标点击位置的坐标】—&gt;【在点击坐标处添加些许文字】—&gt;【动画实现文字显示效果】—&gt;【固定时间后文字消失】</p>
+<hr>
+<h3 id="二-代码实现"><a href="#二-代码实现" class="headerlink" title="二.  代码实现"></a>二.  代码实现</h3><p>根据思路，使用代码实现（步骤详见代码注释）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</span><br><span class="line">    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;</span><br><span class="line">    &lt;title&gt;click&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;style&gt;</span><br><span class="line">    .body&#123;</span><br><span class="line">        height: 900px;</span><br><span class="line">        width: 100%;</span><br><span class="line">        background-color: pink;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;body class=&quot;body&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;script src=&quot;./jquery-3.1.1.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">$(&quot;.body&quot;).mousedown(function(e)&#123;  </span><br><span class="line">    var arr = [&apos;富强&apos;,&apos;民主&apos;,&apos;文明&apos;,&apos;和谐&apos;,&apos;自由&apos;,&apos;平等&apos;,&apos;公正&apos;,&apos;法制&apos;,&apos;爱国&apos;,&apos;敬业&apos;,&apos;诚信&apos;,&apos;友善&apos;] </span><br><span class="line">    switch(e.which)&#123;</span><br><span class="line">        //左键点击</span><br><span class="line">        case 1:&#123;</span><br><span class="line">            //计算鼠标点击坐标</span><br><span class="line">            var x = e.originalEvent.x ||e.originalEvent.layerX || 0     </span><br><span class="line">            var y = e.originalEvent.y ||e.originalEvent.layerY || 0 </span><br><span class="line">            //随机取出文字          </span><br><span class="line">            var index = Math.floor((Math.random()*arr.length))</span><br><span class="line">            var text = arr[index]</span><br><span class="line">            //调用文字显示函数</span><br><span class="line">            createDiv(x,y,text)</span><br><span class="line">            //文字出现后固定时间内消失</span><br><span class="line">            $(&apos;.newdiv&apos;).delay(600).hide(0)</span><br><span class="line">            break</span><br><span class="line">        &#125;   </span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">function createDiv (x,y,text) &#123;</span><br><span class="line">    //文字颜色</span><br><span class="line">    var colorArr = [</span><br><span class="line">        &apos;red&apos;,&apos;yellow&apos;,&apos;green&apos;,&apos;blue&apos;,&apos;orange&apos;,&apos;black&apos;</span><br><span class="line">    ]</span><br><span class="line">    //随机取出颜色</span><br><span class="line">    var colorIndex = Math.floor((Math.random()*colorArr.length))</span><br><span class="line">    var color = colorArr[colorIndex]</span><br><span class="line">    //在鼠标点击处创建一个div用来显示文字</span><br><span class="line">    newDiv = $(&quot;&lt;div&gt;&lt;/div&gt;&quot;)</span><br><span class="line">    newDiv.css(&#123;</span><br><span class="line">        &apos;position&apos;:&apos;absolute&apos;,</span><br><span class="line">        &apos;width&apos;:&apos;40px&apos;,</span><br><span class="line">        &apos;height&apos;:&apos;30px&apos;,</span><br><span class="line">        &apos;left&apos;: x-15 + &apos;px&apos;,</span><br><span class="line">        &apos;top&apos;: + y-20 +&apos;px&apos;,</span><br><span class="line">        &apos;text-align&apos;:&apos;center&apos;,</span><br><span class="line">        &apos;color&apos;:color</span><br><span class="line">    &#125;)</span><br><span class="line">    newDiv.addClass(&apos;newdiv&apos;)</span><br><span class="line">    $(&apos;.body&apos;).html(newDiv)</span><br><span class="line">    $(&apos;.newdiv&apos;).html(text)</span><br><span class="line">    //动画效果</span><br><span class="line">    $(&apos;.newdiv&apos;).animate(&#123;top:+ y-35 +&apos;px&apos;&#125;)</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>【注】如果有其他需求，如：文字颜色渐变、字体样式、鼠标样式等，可自行添加和修改。</p>
+</blockquote>
+<hr>
+<p>【后言】<br>需要现根据要实现的效果分析实现的步骤，再用代码实现</p>
+<p>=========   本文属原创，转发请注明出处   ==========</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢来自大佬的关爱<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PHP</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">jquery</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数组</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">鼠标左键事件</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">排序</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">文字效果</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2016/09/19/click-words-effects.html" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2016/08/10/recursion.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">php递归思想举例之唐僧扫塔</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -244,9 +362,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
